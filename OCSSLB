@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Up Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #clock {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        #text {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">LTI FREE CLOCK</div>
+    <div id="clock">00:00:00</div>
+    <button onclick="resetClock()">Reset</button>
+    <div id="text">OCS's Commitment to 1,000,000 LTI Free ManHour Start with YOU</div>
+
+    <script>
+        let startTime = new Date('2024-10-01T00:00:00');
+        let clockInterval;
+
+        function startClock() {
+            clockInterval = setInterval(updateClock, 1000);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const elapsedTime = new Date(now - startTime);
+            const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
+            const hours = String(elapsedTime.getUTCHours()).padStart(2, '0');
+            const minutes = String(elapsedTime.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(elapsedTime.getUTCSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${days}d ${hours}:${minutes}:${seconds}`;
+        }
+
+        function resetClock() {
+            clearInterval(clockInterval);
+            startTime = new Date();
+            document.getElementById('clock').textContent = '00:00:00';
+            startClock();
+        }
+
+        window.onload = startClock;
+    </script>
+</body>
+</html>
